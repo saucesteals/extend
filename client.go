@@ -95,7 +95,7 @@ func (c *Client) request(ctx context.Context, method string, path string, conten
 		var errorResponse apiErrorResponse
 		err = json.Unmarshal(body, &errorResponse)
 		if err != nil {
-			return fmt.Errorf("bad status: %s", res.Status)
+			return fmt.Errorf("bad status: %s: %s", res.Status, string(body))
 		}
 
 		return errorResponse
