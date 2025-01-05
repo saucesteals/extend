@@ -181,31 +181,36 @@ type VirtualCard struct {
 
 	LastUpdatedBy *User `json:"lastUpdatedBy,omitempty"`
 
-	CardImage             VirtualCardImage    `json:"cardImage"`
-	CardType              string              `json:"cardType"`
-	DisplayName           string              `json:"displayName"`
-	Expires               Time                `json:"expires"`
-	Currency              string              `json:"currency"`
-	LimitCents            int                 `json:"limitCents"`
-	BalanceCents          int                 `json:"balanceCents"`
-	SpentCents            int                 `json:"spentCents"`
-	LifetimeSpentCents    int                 `json:"lifetimeSpentCents"`
-	Last4                 string              `json:"last4"`
-	NumberFormat          string              `json:"numberFormat"`
-	ValidFrom             string              `json:"validFrom"`
-	ValidTo               string              `json:"validTo"`
-	Timezone              string              `json:"timezone"`
-	CreditCardID          string              `json:"creditCardId"`
-	Recurs                bool                `json:"recurs"`
-	CreatedAt             string              `json:"createdAt"`
-	UpdatedAt             string              `json:"updatedAt"`
-	Address               Address             `json:"address"`
-	Features              VirtualCardFeatures `json:"features"`
-	HasPlasticCard        bool                `json:"hasPlasticCard"`
-	ActiveUntil           string              `json:"activeUntil"`
-	Network               string              `json:"network"`
-	CompanyName           string              `json:"companyName"`
-	CreditCardDisplayName VirtualCardIssuer   `json:"issuer"`
-	ReceiptRulesExempt    bool                `json:"receiptRulesExempt"`
-	IsBillPay             bool                `json:"isBillPay"`
+	CardImage          VirtualCardImage `json:"cardImage"`
+	CardType           string           `json:"cardType"`
+	DisplayName        string           `json:"displayName"`
+	Currency           string           `json:"currency"`
+	LimitCents         int              `json:"limitCents"`
+	BalanceCents       int              `json:"balanceCents"`
+	SpentCents         int              `json:"spentCents"`
+	LifetimeSpentCents int              `json:"lifetimeSpentCents"`
+	Last4              string           `json:"last4"`
+	NumberFormat       string           `json:"numberFormat"`
+
+	InactiveSince *Time `json:"inactiveSince"`
+	Expires       *Time `json:"expires"`
+	ValidFrom     *Time `json:"validFrom"`
+	ValidTo       *Time `json:"validTo"`
+	CreatedAt     *Time `json:"createdAt"`
+	UpdatedAt     *Time `json:"updatedAt"`
+	ActiveUntil   *Time `json:"activeUntil"`
+
+	Timezone     string `json:"timezone"`
+	CreditCardID string `json:"creditCardId"`
+	Recurs       bool   `json:"recurs"`
+
+	Address        Address             `json:"address"`
+	Features       VirtualCardFeatures `json:"features"`
+	HasPlasticCard bool                `json:"hasPlasticCard"`
+
+	Network               string            `json:"network"`
+	CompanyName           string            `json:"companyName"`
+	CreditCardDisplayName VirtualCardIssuer `json:"issuer"`
+	ReceiptRulesExempt    bool              `json:"receiptRulesExempt"`
+	IsBillPay             bool              `json:"isBillPay"`
 }

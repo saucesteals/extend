@@ -20,17 +20,29 @@ go get github.com/saucesteals/extend
 3. Run the following JavaScript in the console:
 
 ```js
-function lookup(suffix) {
-  const key = Object.keys(localStorage).find(
-    (key) =>
-      key.startsWith("CognitoIdentityServiceProvider") && key.endsWith(suffix)
+function lookupUserDetails() {
+  const lastAuthUser = Object.entries(localStorage).find(
+    ([key]) =>
+      key.startsWith("CognitoIdentityServiceProvider") &&
+      key.endsWith("LastAuthUser")
   );
-  if (!key) return;
-  console.log(suffix, localStorage[key]);
+  if (!lastAuthUser) return console.log("No user logged in");
+
+  const [key, user] = lastAuthUser;
+  const prefix = key.split(".").slice(0, 2).join(".") + "." + user + ".";
+  const email = JSON.parse(
+    localStorage[prefix + "userData"]
+  ).UserAttributes.find((attr) => attr.Name === "email").Value;
+  const lookup = (suffix) =>
+    console.log(suffix, "-", localStorage[prefix + suffix]);
+
+  console.log("Details for", email);
+  lookup("deviceGroupKey");
+  lookup("deviceKey");
+  lookup("randomPasswordKey");
 }
-lookup("deviceGroupKey");
-lookup("deviceKey");
-lookup("randomPasswordKey");
+
+lookupUserDetails();
 ```
 
 ## Quick Start
