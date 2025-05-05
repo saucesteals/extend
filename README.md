@@ -24,22 +24,20 @@ function lookupUserDetails() {
   const lastAuthUser = Object.entries(localStorage).find(
     ([key]) =>
       key.startsWith("CognitoIdentityServiceProvider") &&
-      key.endsWith("LastAuthUser")
+      key.endsWith("LastAuthUser"),
   );
-  if (!lastAuthUser) return console.log("No user logged in");
+  if (!lastAuthUser) return console.log("Must be logged in");
 
   const [key, user] = lastAuthUser;
   const prefix = key.split(".").slice(0, 2).join(".") + "." + user + ".";
-  const email = JSON.parse(
-    localStorage[prefix + "userData"]
-  ).UserAttributes.find((attr) => attr.Name === "email").Value;
-  const lookup = (suffix) =>
-    console.log(suffix, "-", localStorage[prefix + suffix]);
+  const lookup = (suffix) => localStorage[prefix + suffix];
 
-  console.log("Details for", email);
-  lookup("deviceGroupKey");
-  lookup("deviceKey");
-  lookup("randomPasswordKey");
+  console.table({
+    email: JSON.parse(lookup("signInDetails")).loginId,
+    deviceGroupKey: lookup("deviceGroupKey"),
+    deviceKey: lookup("deviceKey"),
+    devicePassword: lookup("randomPasswordKey"),
+  });
 }
 
 lookupUserDetails();
@@ -56,7 +54,7 @@ client := extend.New(cognito.NewCognito(cognito.AuthParams{
 
 	DeviceGroupKey: "device_group_key", // deviceGroupKey from browser
 	DeviceKey:      "device_key", // deviceKey from browser
-	DevicePassword: "device_password", // randomPasswordKey from browser
+	DevicePassword: "device_password", // devicePassword from browser
 }))
 ```
 
